@@ -7,6 +7,7 @@
   "author": "HighPoint <support@mhighpoint.com>",
   "license": "MIT",
   "private": false,
+  "files": ["cli.js"],
   "dependencies": {
     "commander": "^2.17.1",
     "postcss": "^7.0.2",
@@ -23,12 +24,12 @@
     "prettier": "^1.14.2",
     "rimraf": "^2.6.2"
   },
-  "bin": "./index.js",
+  "bin": "./cli.js",
   "scripts": {
     "clean": "mkdirp dist && rimraf dist/*",
     "lint": "eslint .",
     "pretest": "npm run clean",
-    "test": "node ./index.js --in test/main.scss --out dist/test.scss"
+    "test": "node ./cli.js --in test/main.scss --out dist/test.scss"
   },
   "husky": {
     "hooks": {

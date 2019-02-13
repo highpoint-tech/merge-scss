@@ -1,16 +1,11 @@
-#!/usr/bin/env node
-
-const program = require('commander');
 const fs = require('fs');
 const postcss = require('postcss');
 const easyImport = require('postcss-easy-import');
 const scssSyntax = require('postcss-scss');
 const stripInlineComments = require('postcss-strip-inline-comments');
 const { promisify } = require('util');
-const { version } = require('./package');
 
 const readFileAsync = promisify(fs.readFile);
-const writeFileAsync = promisify(fs.writeFile);
 
 const postcssConfig = [
   easyImport({
@@ -20,23 +15,17 @@ const postcssConfig = [
   stripInlineComments
 ];
 
-program
-  .version(version, '-v, --version')
-  .option('--in <file>', 'root SCSS file')
-  .option('--out <file>', 'destination file')
-  .parse(process.argv);
+const mergeSCSS = fileIn =>
+  new Promise((resolve, reject) => {
+    readFileAsync(fileIn, 'utf8')
+      .then(data =>
+        postcss(postcssConfig).process(data, {
+          from: fileIn,
+          parser: scssSyntax
+        })
+      )
+      .then(({ css }) => resolve(css))
+      .catch(e => reject(e));
+  });
 
-if (!process.argv.slice(2).length) {
-  program.outputHelp();
-  process.exit(0);
-}
-
-readFileAsync(program.in, 'utf8')
-  .then(data =>
-    postcss(postcssConfig).process(data, {
-      from: program.in,
-      parser: scssSyntax
-    })
-  )
-  .then(({ css }) => writeFileAsync(program.out, css))
-  .catch(console.error);
+module.exports = mergeSCSS;
