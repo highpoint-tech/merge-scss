@@ -3,7 +3,7 @@
   "version": "1.0.1",
   "description": "Merge SCSS files together",
   "main": "index.js",
-  "repository": "https://github.com/hp-mobile/merge-scss.git",
+  "repository": "https://github.com/highpoint-tech/merge-scss.git",
   "author": "HighPoint <support@mhighpoint.com>",
   "license": "MIT",
   "private": false,
