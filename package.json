@@ -10,7 +10,7 @@
   "files": ["cli.js"],
   "dependencies": {
     "commander": "^2.17.1",
-    "postcss": "^7.0.2",
+    "postcss": "^8.2.10",
     "postcss-easy-import": "^3.0.0",
     "postcss-scss": "^2.0.0",
     "postcss-strip-inline-comments": "^0.1.5"
